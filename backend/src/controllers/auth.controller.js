@@ -1,11 +1,11 @@
 import User from "../models/user.js";
 import bcrypt from "bcryptjs";
-import generateToken from "../lib/utils.js";
+import {generateToken} from "../lib/utils.js";
 
 export const signup = async (req,res) => {
     // res.send('Signup endpoint');
 
-     const {fullName, email, password} = req.body
+     const {fullName, email, password} = req.body;
 
      try {
         if (!fullName || !email || !password){
@@ -48,6 +48,8 @@ export const signup = async (req,res) => {
                 email:newUser.email,
                 profilePic:newUser.profilePic
             })
+
+            // Todo: send a welcome email to user
         } else {
             res.status(400).json({message: "Invalid user data"})
         } 
