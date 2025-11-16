@@ -1,11 +1,11 @@
 import User from "../models/user.js";
 import bcrypt from "bcryptjs";
-import generateToken from "../lib/utils.js";
+import {generateToken} from "../lib/utils.js";
 
 export const signup = async (req,res) => {
     // res.send('Signup endpoint');
 
-     const {fullName, email, password} = req.body
+     const {fullName, email, password} = req.body;
 
      try {
         if (!fullName || !email || !password){
@@ -39,8 +39,13 @@ export const signup = async (req,res) => {
         })
 
         if(newUser){
-            generateToken(newUser._id, res)
-            await newUser.save()
+
+            // generateToken(newUser._id, res)
+            // await newUser.save()
+            
+            // persist user first, then issue the auth cookie
+            const savedUser = await newUser.save();
+            generateToken(savedUser._id, res);
 
             res.status(201).json({
                 _id:newUser._id,
@@ -48,6 +53,8 @@ export const signup = async (req,res) => {
                 email:newUser.email,
                 profilePic:newUser.profilePic
             })
+
+            // Todo: send a welcome email to user
         } else {
             res.status(400).json({message: "Invalid user data"})
         } 

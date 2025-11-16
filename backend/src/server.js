@@ -16,25 +16,27 @@ const __dirname = path.resolve();
 // incase port is not defined, 3000 is the fallback value
 const port = process.env.PORT || 3000;
 
+//for backend to communicate and must always be above routes
+app.use(express.json()); 
+
 // routes
 app.use('/api/auth', authRoutes);
 app.use('/api/messages', messageRoutes);
 
 //make ready for deployment
 if(process.env.NODE_ENV === 'production'){
-    app.use(express.static(path.join(__dirname, "../frontend/dist")))
+    app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
 // any other routes other than those above
     app.get('*', (req,res) =>{
-        res.sendFile(path.join(__dirname, "../frontend/dist/index.html"))
+        res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
     })
 }
 
-//for backend to communicate
-app.use(express.json()); // req.body
+
 
 app.listen(port, () => {
-    console.log(`server running on port ${port}`)
+    console.log(`server running on port ${port}`);
     connectDB(); // to connect to db
 
 });
