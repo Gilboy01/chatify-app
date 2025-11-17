@@ -1,12 +1,12 @@
 import jwt from "jsonwebtoken";
-import {ENV} from "./env.js"
+import {ENV} from "./env.js";
 
- export const generateToken = (userId,res) =>{
+export const generateToken = (userId,res) =>{
     
     // create token
     const {JWT_SECRET} = ENV;
     if(!JWT_SECRET){
-        throw new Error('JWT_SECRET is not configured')
+        throw new Error("JWT_SECRET is not configured");
     }
 
     const token = jwt.sign({userId}, JWT_SECRET, {
@@ -21,5 +21,5 @@ import {ENV} from "./env.js"
     });
 
     return token;
-}
+};
 
