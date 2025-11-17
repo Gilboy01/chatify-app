@@ -1,20 +1,20 @@
 //create a basic API
 // const express = require('express');
 import express from "express";
-import dotenv from "dotenv";
 import authRoutes from "./routes/auth.route.js"
 import messageRoutes from "./routes/message.route.js"
 import path from "path";
 import { connectDB } from "./lib/db.js"; 
+import {ENV} from "./lib/env.js"
 
 const app = express();
-dotenv.config();
+
 
 const __dirname = path.resolve();
 
 //  console.log(process.env.PORT);
 // incase port is not defined, 3000 is the fallback value
-const port = process.env.PORT || 3000;
+const port = ENV.PORT || 3000;
 
 //for backend to communicate and must always be above routes
 app.use(express.json()); 
@@ -24,7 +24,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/messages', messageRoutes);
 
 //make ready for deployment
-if(process.env.NODE_ENV === 'production'){
+if(ENV.NODE_ENV === 'production'){
     app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
 // any other routes other than those above
