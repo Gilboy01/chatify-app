@@ -1,11 +1,13 @@
 //create a basic API
 // const express = require('express');
 import express from "express";
-import authRoutes from "./routes/auth.route.js"
-import messageRoutes from "./routes/message.route.js"
 import path from "path";
+import cookieParser from "cookie-parser";
+
+import authRoutes from "./routes/auth.route.js";
+import messageRoutes from "./routes/message.route.js";
 import { connectDB } from "./lib/db.js"; 
-import {ENV} from "./lib/env.js"
+import {ENV} from "./lib/env.js";
 
 const app = express();
 
@@ -18,19 +20,20 @@ const port = ENV.PORT || 3000;
 
 //for backend to communicate and must always be above routes
 app.use(express.json()); 
+app.use(cookieParser());
 
 // routes
-app.use('/api/auth', authRoutes);
-app.use('/api/messages', messageRoutes);
+app.use("/api/auth", authRoutes);
+app.use("/api/messages", messageRoutes);
 
 //make ready for deployment
-if(ENV.NODE_ENV === 'production'){
+if(ENV.NODE_ENV === "production"){
     app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
-// any other routes other than those above
-    app.get('*', (req,res) =>{
+    // any other routes other than those above
+    app.get("*", (req,res) =>{
         res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
-    })
+    });
 }
 
 
