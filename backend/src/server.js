@@ -18,8 +18,8 @@ const __dirname = path.resolve();
 // incase port is not defined, 3000 is the fallback value
 const port = ENV.PORT || 3000;
 
-//for backend to communicate and must always be above routes
-app.use(express.json()); 
+
+app.use(express.json()); //for backend to communicate and must always be above routes
 app.use(cookieParser());
 
 // routes

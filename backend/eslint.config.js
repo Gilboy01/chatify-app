@@ -12,11 +12,12 @@ export default [
       }
     },
     rules: {
-      "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
+        "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
       "no-console": "off",
       "semi": ["error", "always"],
       "quotes": ["error", "double"],
       "indent": ["error", 4]
+
     }
   }
 ];
