@@ -1,3 +1,4 @@
+// checks for authentication
 import jwt from "jsonwebtoken";
 import User from "../models/user.model.js";
 import {ENV} from "../lib/env.js";
