@@ -16,7 +16,7 @@ export default [
       "no-console": "off",
       "semi": ["error", "always"],
       "quotes": ["error", "double"],
-      "indent": ["error", 4]
+      
 
     }
   }
