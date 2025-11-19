@@ -3,6 +3,7 @@
 import express from "express";
 import path from "path";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 
 import authRoutes from "./routes/auth.route.js";
 import messageRoutes from "./routes/message.route.js";
@@ -20,6 +21,7 @@ const port = ENV.PORT || 3000;
 
 
 app.use(express.json()); //for backend to communicate and must always be above routes
+app.use(cors({origin:ENV.CLIENT_URL, credentials:true})); //allow frontend to send cookies to backend
 app.use(cookieParser());
 
 // routes
