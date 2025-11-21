@@ -8,8 +8,8 @@ const router = express.Router();
 // we add arcjet for rate limiting
 // we add protectRoute to check for authentication
 // the middle wares execute in order
-// this is mor efficient since unauthorized requests get blocked by ratelimiting before hitting the auth middleware 
-router.use(arcjetProtection, protectRoute);
+// this is more efficient since unauthorized requests get blocked by ratelimiting before hitting the auth middleware 
+router.use( arcjetProtection, protectRoute); //add arcjet
 
 router.get("/contacts", getAllContacts);
 router.get("/chats", getChatPartners);

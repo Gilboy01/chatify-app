@@ -20,9 +20,9 @@ const __dirname = path.resolve();
 const port = ENV.PORT || 3000;
 
 
-app.use(express.json()); //for backend to communicate and must always be above routes
+app.use(express.json()); //(req.body) middleware for backend to communicate with frontend and must always be above routes
 app.use(cors({origin:ENV.CLIENT_URL, credentials:true})); //allow frontend to send cookies to backend
-app.use(cookieParser());
+app.use(cookieParser()); //allows us use cookies
 
 // routes
 app.use("/api/auth", authRoutes);

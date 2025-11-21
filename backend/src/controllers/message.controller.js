@@ -2,12 +2,13 @@ import cloudinary from "../lib/cloudinary.js";
 import Message from "../models/message.model.js";
 import User from "../models/user.model.js";
 
+// get All contacts in db
 export const getAllContacts = async(req, res) => {
     try {
         const loggedInUserId = req.user._id;
 
         // filter out the user that is logged in return other users
-        const filteredUsers = await User.find({_id: { $ne: loggedInUserId}}).select("-password");
+        const filteredUsers = await User.find({_id: { $ne: loggedInUserId}}).select("-password"); // ne = not equal
         res.status(200).json(filteredUsers);
     } catch (error) {
         console.log("Error in getAllContacts", error);
@@ -19,7 +20,7 @@ export const getAllContacts = async(req, res) => {
 export const getMessagesByUserId = async (req, res) => {
 
     try {
-        const myId = req.user._id;
+        const myId = req.user._id; // authenticated user id
         const {id: userToChatId} = req.params; // id used in route path
         const messages = await Message.find({
             $or:[
@@ -40,7 +41,7 @@ export const getMessagesByUserId = async (req, res) => {
 
 export const sendMessage = async (req, res) => {
 try {
-    const {text, image} = req.body;
+    const {text, image} = req.body; //from client
     const{id: receiverId} = req.params;
     const senderId = req.user._id;
 
@@ -58,7 +59,7 @@ try {
 
     let imageURL;
     if(image){
-        // upload base 64 image to cloudinary
+        // upload base64image to cloudinary
         const uploadResponse = await cloudinary.uploader.upload(image);
         imageURL = uploadResponse.secure_url;
     }
