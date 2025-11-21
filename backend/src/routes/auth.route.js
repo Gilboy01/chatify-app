@@ -12,7 +12,7 @@ const router = express.Router();
  
 */
 
-router.use(arcjetProtection); // to apply ratelimiting to all APIs
+ router.use(arcjetProtection); // to apply ratelimiting to all APIs
 
 
 // create endpoints
