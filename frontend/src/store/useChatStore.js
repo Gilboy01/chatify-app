@@ -44,6 +44,18 @@ set({isSoundEnabled: !get().isSoundEnabled}) //to update the UI
     }finally{
       set({isUsersLoading: false});
     }
-  }
+  },
+
+  getMessagesByUserId: async (userId) =>{
+    set({isMessagesLoading: true});
+    try {
+      const res = await axiosInstance.get(`/messages/${userId}`);
+      set({messages: res.data});
+    } catch (error) {
+      toast.error(error.response?.data?.message || "Something went wrong"); //optional chaining
+    }finally{
+      set({isMessagesLoading: false});
+    }
+  } 
 
 }));
