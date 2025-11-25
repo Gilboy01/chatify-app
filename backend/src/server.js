@@ -36,12 +36,12 @@ app.use("/api/messages", messageRoutes);
 //make ready for deployment
 if(ENV.NODE_ENV === "production"){
     // app.use(express.static(path.join(__dirname, "../../frontend/dist")));
-    const frontendPath = path.join(__dirname, "../../frontend/dist");
-    app.use(express.static(frontendPath));
+     
+    app.use(express.static(path.join(__dirname, "../dist")));
 
     // any other routes other than those above
      app.get("*", (req, res) => {
-    res.sendFile(path.join(frontendPath, "index.html"));
+    res.sendFile(path.join(__dirname, "../dist/index.html"));
   });
 
     
